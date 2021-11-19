@@ -1,13 +1,12 @@
-﻿using System;
+﻿using System.Threading.Tasks;
 
 namespace BusBoard
 {
     class Program
     {
-        static void Main(string[] args)
+        static async Task Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
-            var plat = new Platform();
+            await Coordinate.CreateFromPostcode("OL10 4AR");
         }
     }
 }
