@@ -7,6 +7,7 @@ namespace BusBoard
         static void Main(string[] args)
         {
             Console.WriteLine("Hello World!");
+            var plat = new Platform();
         }
     }
 }
