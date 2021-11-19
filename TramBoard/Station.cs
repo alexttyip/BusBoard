@@ -1,4 +1,4 @@
-namespace BusBoard
+namespace TramBoard
 {
     public class Station
     {

@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace BusBoard
+namespace TramBoard
 {
     public class ArrivalsWrapper
     {

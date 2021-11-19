@@ -7,7 +7,7 @@ using System.Net.Http.Json;
 using System.Threading.Tasks;
 using Microsoft.VisualBasic.FileIO;
 
-namespace BusBoard
+namespace TramBoard
 {
     public class MetroLink
     {
