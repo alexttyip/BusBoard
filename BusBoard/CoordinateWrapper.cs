@@ -2,6 +2,6 @@ namespace BusBoard
 {
     public class CoordinateWrapper
     {
-        public Coordinate result;
+        public Coordinate result { get; set; }
     }
 }

@@ -1,34 +1,29 @@
 using System;
 using System.Net;
 using System.Net.Http;
+using System.Net.Http.Json;
 using System.Threading.Tasks;
-using Newtonsoft.Json;
 
 namespace BusBoard
 {
     public class Coordinate
     {
-        public double Latitude;
-        public double Longitude;
-
-        public Coordinate()
-        {
-        }
-
         public Coordinate(double latitude, double longitude)
         {
             Latitude = latitude;
             Longitude = longitude;
         }
 
+        public double Latitude { get; set; }
+        public double Longitude { get; set; }
+
         public static async Task<Coordinate> CreateFromPostcode(string postcode)
         {
             var httpClient = new HttpClient();
-            HttpResponseMessage response = await httpClient.GetAsync($"https://api.postcodes.io/postcodes/{postcode}");
+            var response = await httpClient.GetAsync($"https://api.postcodes.io/postcodes/{postcode}");
             if (response.StatusCode == HttpStatusCode.OK)
             {
-                string content = await response.Content.ReadAsStringAsync();
-                var wrapper = JsonConvert.DeserializeObject<CoordinateWrapper>(content);
+                var wrapper = await response.Content.ReadFromJsonAsync<CoordinateWrapper>();
                 return wrapper.result;
             }
 
@@ -38,7 +33,11 @@ namespace BusBoard
 
         public double DistFromOther(Coordinate other)
         {
-            return Math.Sqrt(Math.Pow(Latitude - other.Latitude, 2) + Math.Pow(Longitude - other.Longitude, 2));
+            // Account for differences in length of latitude and longitude
+            var latMiles = (Latitude - other.Latitude) * 69;
+            var lonMiles = (Longitude - other.Longitude) * 54.6;
+
+            return Math.Sqrt(Math.Pow(latMiles, 2) + Math.Pow(lonMiles, 2));
         }
     }
 }

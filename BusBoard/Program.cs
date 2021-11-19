@@ -6,7 +6,11 @@ namespace BusBoard
     {
         static async Task Main(string[] args)
         {
-            await Coordinate.CreateFromPostcode("OL10 4AR");
+            var userCoordinate = await Coordinate.CreateFromPostcode("M44GQ");
+
+            var metrolink =
+                await MetroLink.CreateFromCsv("http://odata.tfgm.com/opendata/downloads/TfGMMetroRailStops.csv");
+            await metrolink.DisplayNearbyTrams(userCoordinate);
         }
     }
 }
