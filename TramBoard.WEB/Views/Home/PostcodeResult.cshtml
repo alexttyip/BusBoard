@@ -4,8 +4,8 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div>
-    <h1>The @Model.Limit closest stations to @Model.Postcode are:</h1>
+<div class="root">
+    <h1>The @Model.Limit closest stations to @Model.Postcode:</h1>
     @foreach (var stationResult in Model.StationResults)
     {
         <h2>@stationResult.Station.Name (@stationResult.Distance.ToString("0.00") mi)</h2>

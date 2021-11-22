@@ -7,6 +7,10 @@ html {
         font-size: 16px;
     }
 }
+@font-face {
+    font-family: "LED Font";
+    src: url("/fonts/led_counter-7.ttf");
+}
 
 html {
     position: relative;
@@ -15,8 +19,45 @@ html {
 
 body {
     margin-bottom: 60px;
+    font-family: "LED Font";
+    background: #241001;
+    color: orange;
 }
 
 th, td, table {
-    border: 1px solid black;
+    border: 1px solid black
+}
+
+th:nth-child(2), td:nth-child(2), th:nth-child(3), td:nth-child(3) {
+    width: 25%;
+}
+
+h2 {
+    margin-top: 12px;
+}
+
+table {
+    margin-bottom: 12px;;
+    width: 100%;
+}
+
+marquee {
+    background: black;
+}
+
+.root {
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+input {
+    margin-bottom: 6px;
+}
+
+input[type=submit] {
+    background: orange;
+    border-color: brown;
+    color: white;
+    font-weight: bold;
 }
