@@ -2,6 +2,10 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TramBoard", "TramBoard\TramBoard.csproj", "{11021BCF-D5D4-4EB7-B9F8-1A5EB6A7FAE1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TramBoard.API", "TramBoard.API\TramBoard.API.csproj", "{79086066-61C7-4596-A61F-777C6A29E1F3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TramBoard.WEB", "TramBoard.WEB\TramBoard.WEB.csproj", "{FFB7D858-4FC8-4619-9588-BC6ADB042412}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -12,5 +16,13 @@ Global
 		{11021BCF-D5D4-4EB7-B9F8-1A5EB6A7FAE1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{11021BCF-D5D4-4EB7-B9F8-1A5EB6A7FAE1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{11021BCF-D5D4-4EB7-B9F8-1A5EB6A7FAE1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{79086066-61C7-4596-A61F-777C6A29E1F3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{79086066-61C7-4596-A61F-777C6A29E1F3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{79086066-61C7-4596-A61F-777C6A29E1F3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{79086066-61C7-4596-A61F-777C6A29E1F3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FFB7D858-4FC8-4619-9588-BC6ADB042412}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FFB7D858-4FC8-4619-9588-BC6ADB042412}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FFB7D858-4FC8-4619-9588-BC6ADB042412}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FFB7D858-4FC8-4619-9588-BC6ADB042412}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

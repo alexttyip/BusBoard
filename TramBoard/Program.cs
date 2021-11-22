@@ -1,4 +1,6 @@
 ﻿using System.Threading.Tasks;
+using TramBoard.API;
+using TramBoard.API.Models.Internal;
 
 namespace TramBoard
 {
