@@ -16,3 +16,7 @@ html {
 body {
     margin-bottom: 60px;
 }
+
+th, td, table {
+    border: 1px solid black;
+}

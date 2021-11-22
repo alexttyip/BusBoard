@@ -1,0 +1,32 @@
+﻿@using TramBoard.WEB.Models
+@model TramBoard.WEB.Models.HomeViewModel
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div>
+    <h1>The 2 closest stations to @Model.Postcode are:</h1>
+    @foreach (var stationResult in Model.stationResults)
+    {
+        <h2>@stationResult.Station.Name</h2>
+        @foreach (var platform in stationResult.Platforms)
+        {
+            <h3>Platform @platform.PlatformNumber</h3>
+            <table>
+                <tr>
+                    <th>Status</th>
+                    <th>Terminates at</th>
+                    <th>Carriages</th>
+                </tr>
+                @foreach (var tram in platform.Trams.Where(tram => tram != null))
+                {
+                    <tr>
+                        <td>@HomeViewModel.GetStatusString(tram)</td>
+                        <td>@tram.Destination</td>
+                        <td>@tram.Carriages</td>
+                    </tr>
+                }
+            </table>
+        }
+    }
+</div>

@@ -79,6 +79,9 @@ namespace TramBoard.API
                 output[idx].AddPlatform(platform);
             }
 
+            foreach (var stationResult in output)
+                stationResult.Platforms.Sort((p1, p2) => p1.PlatformNumber > p2.PlatformNumber ? 1 : -1);
+
             return output;
         }
 
@@ -89,7 +92,7 @@ namespace TramBoard.API
             {
                 Console.Out.WriteLine();
                 Console.Out.WriteLine($"{stationResult.Station.Name} ({stationResult.Distance:F2} mi)");
-                stationResult.Platforms.Sort((p1, p2) => p1.PlatformNumber > p2.PlatformNumber ? 1 : -1);
+
                 foreach (var stationResultPlatform in stationResult.Platforms)
                 {
                     Console.Out.WriteLine();

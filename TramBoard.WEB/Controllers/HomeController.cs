@@ -1,7 +1,10 @@
 ﻿using System.Diagnostics;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using TramBoard.API;
+using TramBoard.API.Models.Internal;
+using TramBoard.WEB.Models;
 
 public class HomeController : Controller
 {
@@ -14,15 +17,19 @@ public class HomeController : Controller
 
     public IActionResult Index()
     {
-        var postcode = "M2 4WU";
+        return View();
+    }
+
+    [HttpGet("{postcode}")]
+    public async Task<IActionResult> PostcodeResult([FromRoute] string postcode)
+    {
         var userCoordinate = await Coordinate.CreateFromPostcode(postcode);
 
         var metroLink =
             await MetroLink.CreateFromCsv("http://odata.tfgm.com/opendata/downloads/TfGMMetroRailStops.csv");
         var stationResults = await metroLink.FetchNearbyTrams(userCoordinate);
-        metroLink.DisplayNearbyTrams(postcode, stationResults);
 
-        return View();
+        return View(new HomeViewModel(postcode, stationResults));
     }
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
