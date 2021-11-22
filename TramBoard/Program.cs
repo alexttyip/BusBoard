@@ -9,7 +9,7 @@ namespace TramBoard
         static async Task Main(string[] args)
         {
             var postcode = args[0];
-            var userCoordinate = await Coordinate.CreateFromPostcode(postcode);
+            var userCoordinate = await UserCoordinate.CreateFromPostcode(postcode);
 
             var metroLink =
                 await MetroLink.CreateFromCsv("http://odata.tfgm.com/opendata/downloads/TfGMMetroRailStops.csv");
