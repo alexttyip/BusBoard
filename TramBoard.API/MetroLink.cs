@@ -20,27 +20,16 @@ namespace TramBoard.API
         {
             var metroLink = new MetroLink();
 
-            var parser = await StationsCsvClient.GetStationsCsvParser(url);
-            while (!parser.EndOfData)
-            {
-                //Processing row
-                var fields = parser.ReadFields();
+            var stations = await StationsCsvClient.GetStationsCsvParser(url);
 
-                // Filter out non-MetroLink stations
-                if (fields[9] != "M") continue;
-
-                var coordinate = new Coordinate(double.Parse(fields[2]), double.Parse(fields[3]));
-                var station = new Station(fields[0], fields[6], coordinate);
-
-                metroLink.AddStation(station);
-            }
+            metroLink.AddStations(stations);
 
             return metroLink;
         }
 
-        public void AddStation(Station station)
+        public void AddStations(List<Station> stations)
         {
-            Stations.Add(station);
+            Stations.AddRange(stations);
         }
 
         public List<KeyValuePair<double, Station>> FindNearestStations(Coordinate userCoordinate, int limit)
@@ -63,10 +52,8 @@ namespace TramBoard.API
 
             var listOfPlatforms = await ArrivalsApiClient.GetListOfArrivalsPlatforms();
 
-            foreach (var platformWrapper in listOfPlatforms)
+            foreach (var platform in listOfPlatforms)
             {
-                var platform = platformWrapper.ToPlatform();
-
                 var atcoCode = platform.AtcoCode;
 
                 var idx = nearbyStations.FindIndex(pair => pair.Value.AtcoCode == atcoCode);

@@ -1,14 +1,16 @@
 using System;
+using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.VisualBasic.FileIO;
+using TramBoard.API.Models.Internal;
 
 namespace TramBoard.API.Clients
 {
     public class StationsCsvClient
     {
-        public static async Task<TextFieldParser> GetStationsCsvParser(string url)
+        public static async Task<List<Station>> GetStationsCsvParser(string url)
         {
             var httpClient = new HttpClient();
             var response = await httpClient.GetAsync(url);
@@ -21,7 +23,23 @@ namespace TramBoard.API.Clients
                 parser.SetDelimiters(",");
                 // Skip header line
                 parser.ReadLine();
-                return parser;
+
+                var stations = new List<Station>();
+                while (!parser.EndOfData)
+                {
+                    //Processing row
+                    var fields = parser.ReadFields();
+
+                    // Filter out non-MetroLink stations
+                    if (fields[9] != "M") continue;
+
+                    var coordinate = new Coordinate(double.Parse(fields[2]), double.Parse(fields[3]));
+                    var station = new Station(fields[0], fields[6], coordinate);
+
+                    stations.Add(station);
+                }
+
+                return stations;
             }
 
             Console.Out.WriteLine(response.StatusCode);
