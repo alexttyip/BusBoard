@@ -44,9 +44,9 @@ namespace TramBoard.API
             return nearestStations.Take(limit).ToList();
         }
 
-        public async Task<List<StationResult>> FetchNearbyTrams(Coordinate userCoordinate)
+        public async Task<List<StationResult>> FetchNearbyTrams(Coordinate userCoordinate, int limit)
         {
-            var nearbyStations = FindNearestStations(userCoordinate, 2);
+            var nearbyStations = FindNearestStations(userCoordinate, limit);
 
             var output = nearbyStations.Select(pair => new StationResult(pair.Value, pair.Key)).ToList();
 

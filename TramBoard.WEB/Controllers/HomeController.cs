@@ -28,7 +28,7 @@ public class HomeController : Controller
     }
 
     [HttpGet("results")]
-    public async Task<IActionResult> PostcodeResult([FromQuery] string postcode)
+    public async Task<IActionResult> PostcodeResult([FromQuery] string postcode, [FromQuery] int limit)
     {
         postcode = postcode.ToUpper();
 
@@ -44,9 +44,9 @@ public class HomeController : Controller
 
         var metroLink =
             await MetroLink.CreateFromCsv("http://odata.tfgm.com/opendata/downloads/TfGMMetroRailStops.csv");
-        var stationResults = await metroLink.FetchNearbyTrams(userCoordinate);
+        var stationResults = await metroLink.FetchNearbyTrams(userCoordinate, limit);
 
-        return View(new HomeViewModel(postcode, stationResults));
+        return View(new HomeViewModel(postcode, stationResults, limit));
     }
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

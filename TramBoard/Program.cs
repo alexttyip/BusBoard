@@ -13,7 +13,7 @@ namespace TramBoard
 
             var metroLink =
                 await MetroLink.CreateFromCsv("http://odata.tfgm.com/opendata/downloads/TfGMMetroRailStops.csv");
-            var stationResults = await metroLink.FetchNearbyTrams(userCoordinate);
+            var stationResults = await metroLink.FetchNearbyTrams(userCoordinate, 2);
             metroLink.DisplayNearbyTrams(postcode, stationResults);
         }
     }

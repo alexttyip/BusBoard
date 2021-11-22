@@ -5,13 +5,14 @@
 }
 
 <div>
-    <h1>The 2 closest stations to @Model.Postcode are:</h1>
-    @foreach (var stationResult in Model.stationResults)
+    <h1>The @Model.Limit closest stations to @Model.Postcode are:</h1>
+    @foreach (var stationResult in Model.StationResults)
     {
-        <h2>@stationResult.Station.Name</h2>
+        <h2>@stationResult.Station.Name (@stationResult.Distance.ToString("0.00") mi)</h2>
         @foreach (var platform in stationResult.Platforms)
         {
             <h3>Platform @platform.PlatformNumber</h3>
+            <marquee>@platform.Message</marquee>
             <table>
                 <tr>
                     <th>Status</th>

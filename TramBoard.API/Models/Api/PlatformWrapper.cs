@@ -7,6 +7,7 @@ namespace TramBoard.API.Models.Api
     {
         public int Id { get; set; }
         public string AtcoCode { get; set; }
+        public string MessageBoard { get; set; }
 
         public string Dest0 { get; set; }
         public string Carriages0 { get; set; }
@@ -43,7 +44,7 @@ namespace TramBoard.API.Models.Api
             var platformNumber = int.Parse(AtcoCode[^1..]);
             var atcoCode = AtcoCode[..^1];
 
-            var platform = new Platform(platformNumber, atcoCode);
+            var platform = new Platform(platformNumber, atcoCode, MessageBoard);
             platform.AddAllTrams(trams);
             return platform;
         }
