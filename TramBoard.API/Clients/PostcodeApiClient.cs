@@ -10,7 +10,7 @@ namespace TramBoard.API.Clients
 {
     public class PostcodeApiClient
     {
-        public static async Task<Coordinate> GetCoordinateFromPostcode(string postcode)
+        public static async Task<UserCoordinate> GetCoordinateFromPostcode(string postcode)
         {
             var httpClient = new HttpClient();
             var response = await httpClient.GetAsync($"https://api.postcodes.io/postcodes/{postcode}");

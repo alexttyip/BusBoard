@@ -30,12 +30,13 @@ public class HomeController : Controller
     [HttpGet("results")]
     public async Task<IActionResult> PostcodeResult([FromQuery] string postcode, [FromQuery] int limit)
     {
+        // TODO Error handling
         postcode = postcode.ToUpper();
 
-        Coordinate userCoordinate;
+        UserCoordinate userCoordinate;
         try
         {
-            userCoordinate = await Coordinate.CreateFromPostcode(postcode);
+            userCoordinate = await UserCoordinate.CreateFromPostcode(postcode);
         }
         catch (PostcodeNotFoundException e)
         {
@@ -46,7 +47,7 @@ public class HomeController : Controller
             await MetroLink.CreateFromCsv("http://odata.tfgm.com/opendata/downloads/TfGMMetroRailStops.csv");
         var stationResults = await metroLink.FetchNearbyTrams(userCoordinate, limit);
 
-        return View(new HomeViewModel(postcode, stationResults, limit));
+        return View(new HomeViewModel(userCoordinate.Postcode, stationResults, limit));
     }
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

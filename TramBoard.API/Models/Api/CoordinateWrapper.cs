@@ -4,6 +4,6 @@ namespace TramBoard.API.Models.Api
 {
     public class CoordinateWrapper
     {
-        public Coordinate Result { get; set; }
+        public UserCoordinate Result { get; set; }
     }
 }

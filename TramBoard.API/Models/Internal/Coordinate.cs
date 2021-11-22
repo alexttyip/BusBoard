@@ -1,6 +1,4 @@
 using System;
-using System.Threading.Tasks;
-using TramBoard.API.Clients;
 
 namespace TramBoard.API.Models.Internal
 {
@@ -14,11 +12,6 @@ namespace TramBoard.API.Models.Internal
 
         public double Latitude { get; set; }
         public double Longitude { get; set; }
-
-        public static async Task<Coordinate> CreateFromPostcode(string postcode)
-        {
-            return await PostcodeApiClient.GetCoordinateFromPostcode(postcode);
-        }
 
         public double DistFromOther(Coordinate other)
         {
