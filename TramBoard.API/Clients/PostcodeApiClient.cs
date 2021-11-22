@@ -21,7 +21,11 @@ namespace TramBoard.API.Clients
             }
 
             Console.Out.WriteLine(response.StatusCode);
-            throw new Exception();
+            throw new PostcodeNotFoundException();
         }
+    }
+
+    public class PostcodeNotFoundException : Exception
+    {
     }
 }

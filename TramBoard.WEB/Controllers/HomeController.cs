@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using TramBoard.API;
+using TramBoard.API.Clients;
 using TramBoard.API.Models.Internal;
 using TramBoard.WEB.Models;
 
@@ -20,10 +21,26 @@ public class HomeController : Controller
         return View();
     }
 
-    [HttpGet("{postcode}")]
-    public async Task<IActionResult> PostcodeResult([FromRoute] string postcode)
+    [HttpGet("postcodeNotFound")]
+    public IActionResult PostcodeNotFound()
     {
-        var userCoordinate = await Coordinate.CreateFromPostcode(postcode);
+        return View();
+    }
+
+    [HttpGet("results")]
+    public async Task<IActionResult> PostcodeResult([FromQuery] string postcode)
+    {
+        postcode = postcode.ToUpper();
+
+        Coordinate userCoordinate;
+        try
+        {
+            userCoordinate = await Coordinate.CreateFromPostcode(postcode);
+        }
+        catch (PostcodeNotFoundException e)
+        {
+            return Redirect("postcodeNotFound");
+        }
 
         var metroLink =
             await MetroLink.CreateFromCsv("http://odata.tfgm.com/opendata/downloads/TfGMMetroRailStops.csv");
