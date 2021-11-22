@@ -8,9 +8,9 @@ namespace TramBoard
         {
             var userCoordinate = await Coordinate.CreateFromPostcode("M44GQ");
 
-            var metrolink =
+            var metroLink =
                 await MetroLink.CreateFromCsv("http://odata.tfgm.com/opendata/downloads/TfGMMetroRailStops.csv");
-            await metrolink.DisplayNearbyTrams(userCoordinate);
+            await metroLink.DisplayNearbyTrams(userCoordinate);
         }
     }
 }

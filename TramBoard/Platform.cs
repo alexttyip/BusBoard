@@ -4,7 +4,7 @@ namespace TramBoard
 {
     public class Platform
     {
-        public string AtcoCode;
+        public readonly string AtcoCode;
         public int PlatformNumber;
 
         public Platform(int platformNumber, string atcoCode)
@@ -21,7 +21,7 @@ namespace TramBoard
             Trams.Add(tram);
         }
 
-        public void AddAllTrams(List<Tram> trams)
+        public void AddAllTrams(IEnumerable<Tram> trams)
         {
             Trams.AddRange(trams);
         }

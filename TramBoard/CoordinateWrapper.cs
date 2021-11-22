@@ -2,6 +2,6 @@ namespace TramBoard
 {
     public class CoordinateWrapper
     {
-        public Coordinate result { get; set; }
+        public Coordinate Result { get; set; }
     }
 }

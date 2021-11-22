@@ -24,7 +24,7 @@ namespace TramBoard
             if (response.StatusCode == HttpStatusCode.OK)
             {
                 var wrapper = await response.Content.ReadFromJsonAsync<CoordinateWrapper>();
-                return wrapper.result;
+                return wrapper.Result;
             }
 
             Console.Out.WriteLine(response.StatusCode);
@@ -33,7 +33,7 @@ namespace TramBoard
 
         public double DistFromOther(Coordinate other)
         {
-            // Account for differences in length of latitude and longitude
+            // Account for differences in lengths of latitude and longitude
             var latMiles = (Latitude - other.Latitude) * 69;
             var lonMiles = (Longitude - other.Longitude) * 54.6;
 

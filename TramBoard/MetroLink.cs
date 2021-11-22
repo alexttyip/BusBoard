@@ -25,7 +25,7 @@ namespace TramBoard
             var metroLink = new MetroLink();
 
             var httpClient = new HttpClient();
-            HttpResponseMessage response = await httpClient.GetAsync(url);
+            var response = await httpClient.GetAsync(url);
             if (response.StatusCode == HttpStatusCode.OK)
             {
                 var content = await response.Content.ReadAsStreamAsync();
@@ -66,7 +66,7 @@ namespace TramBoard
             var nearestStations = new SortedList<double, Station>();
             foreach (var station in Stations)
             {
-                double distance = station.Coordinate.DistFromOther(userCoordinate);
+                var distance = station.Coordinate.DistFromOther(userCoordinate);
                 nearestStations.Add(distance, station);
             }
 
@@ -77,11 +77,7 @@ namespace TramBoard
         {
             var nearbyStations = FindNearestStations(userCoordinate, 2);
 
-            var output = new List<StationResult>();
-            foreach (var nearbyStation in nearbyStations)
-            {
-                output.Add(new StationResult(nearbyStation));
-            }
+            var output = nearbyStations.Select(nearbyStation => new StationResult(nearbyStation)).ToList();
 
             // read in json
             var httpClient = new HttpClient();
@@ -95,7 +91,7 @@ namespace TramBoard
             if (response.StatusCode == HttpStatusCode.OK)
             {
                 var arrivalsWrapper = await response.Content.ReadFromJsonAsync<ArrivalsWrapper>();
-                var listOfPlatforms = arrivalsWrapper.value;
+                var listOfPlatforms = arrivalsWrapper.Value;
 
                 foreach (var platformWrapper in listOfPlatforms)
                 {

@@ -4,6 +4,6 @@ namespace TramBoard
 {
     public class ArrivalsWrapper
     {
-        public List<PlatformWrapper> value { get; set; }
+        public List<PlatformWrapper> Value { get; set; }
     }
 }
