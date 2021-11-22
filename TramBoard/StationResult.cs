@@ -4,12 +4,14 @@ namespace TramBoard
 {
     public class StationResult
     {
+        public double Distance;
         public List<Platform> Platforms;
         public Station Station;
 
-        public StationResult(Station station)
+        public StationResult(Station station, double distance)
         {
             Station = station;
+            Distance = distance;
             Platforms = new List<Platform>();
         }
 
