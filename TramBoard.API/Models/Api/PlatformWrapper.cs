@@ -25,26 +25,29 @@ public class PlatformWrapper
 
     public Platform ToPlatform()
     {
-        var tram0 = Dest0.Length != 0
-            ? new Tram(
-                Dest0, Carriages0, Status0, int.Parse(Wait0))
-            : null;
-        var tram1 = Dest1.Length != 0
-            ? new Tram(
-                Dest1, Carriages1, Status1, int.Parse(Wait1))
-            : null;
-        var tram2 = Dest2.Length != 0
-            ? new Tram(
-                Dest2, Carriages2, Status2, int.Parse(Wait2))
-            : null;
-
-        var trams = new List<Tram> { tram0, tram1, tram2 };
-
         var platformNumber = int.Parse(AtcoCode[^1..]);
         var atcoCode = AtcoCode[..^1];
 
         var platform = new Platform(platformNumber, atcoCode, MessageBoard);
-        platform.AddAllTrams(trams);
+
+        if (Dest0.Length != 0)
+        {
+            platform.Trams.Add(new Tram(
+                Dest0, Carriages0, Status0, int.Parse(Wait0)));
+        }
+
+        if (Dest1.Length != 0)
+        {
+            platform.Trams.Add(new Tram(
+                Dest1, Carriages1, Status1, int.Parse(Wait1)));
+        }
+
+        if (Dest2.Length != 0)
+        {
+            platform.Trams.Add(new Tram(
+                Dest2, Carriages2, Status2, int.Parse(Wait2)));
+        }
+
         return platform;
     }
 }

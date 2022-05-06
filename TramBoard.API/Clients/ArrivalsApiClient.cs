@@ -9,7 +9,13 @@ public class ArrivalsApiClient
 {
     private const string ApiKey = "cb452a7dacbd4c4e9291d28d515b1dc5";
 
-    public static async Task<List<Platform>> GetListOfArrivalsPlatforms()
+    public static async Task<List<Platform>> FetchListOfArrivalsPlatforms()
+    {
+        var response = await MakeRequest();
+        return await ParseResponse(response);
+    }
+
+    private static Task<HttpResponseMessage> MakeRequest()
     {
         var httpClient = new HttpClient();
         var requestMessage =
@@ -17,16 +23,19 @@ public class ArrivalsApiClient
 
         requestMessage.Headers.Add("Ocp-Apim-Subscription-Key", ApiKey);
 
-        var response = await httpClient.SendAsync(requestMessage);
+        return httpClient.SendAsync(requestMessage);
+    }
 
-        if (response.StatusCode == HttpStatusCode.OK)
+    private static async Task<List<Platform>> ParseResponse(HttpResponseMessage response)
+    {
+        if (response.StatusCode != HttpStatusCode.OK)
         {
-            var arrivalsWrapper = await response.Content.ReadFromJsonAsync<ArrivalsWrapper>();
-            var listOfPlatformWrappers = arrivalsWrapper.Value;
-            return listOfPlatformWrappers.Select(platformWrapper => platformWrapper.ToPlatform()).ToList();
+            Console.Out.WriteLine(response.StatusCode);
+            throw new Exception();
         }
 
-        Console.Out.WriteLine(response.StatusCode);
-        throw new Exception();
+        var arrivalsWrapper = await response.Content.ReadFromJsonAsync<ArrivalsWrapper>();
+        var listOfPlatformWrappers = arrivalsWrapper.Value;
+        return listOfPlatformWrappers.Select(platformWrapper => platformWrapper.ToPlatform()).ToList();
     }
 }
