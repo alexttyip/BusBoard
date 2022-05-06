@@ -1,9 +1,6 @@
-using System.Collections.Generic;
+namespace TramBoard.API.Models.Api;
 
-namespace TramBoard.API.Models.Api
+public class ArrivalsWrapper
 {
-    public class ArrivalsWrapper
-    {
-        public List<PlatformWrapper> Value { get; set; }
-    }
+    public List<PlatformWrapper> Value { get; set; }
 }

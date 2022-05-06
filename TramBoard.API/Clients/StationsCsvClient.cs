@@ -1,49 +1,44 @@
-using System;
-using System.Collections.Generic;
 using System.Net;
-using System.Net.Http;
-using System.Threading.Tasks;
 using Microsoft.VisualBasic.FileIO;
 using TramBoard.API.Models.Internal;
 
-namespace TramBoard.API.Clients
+namespace TramBoard.API.Clients;
+
+public class StationsCsvClient
 {
-    public class StationsCsvClient
+    public static async Task<List<Station>> GetStationsCsvParser(string url)
     {
-        public static async Task<List<Station>> GetStationsCsvParser(string url)
+        var httpClient = new HttpClient();
+        var response = await httpClient.GetAsync(url);
+        if (response.StatusCode == HttpStatusCode.OK)
         {
-            var httpClient = new HttpClient();
-            var response = await httpClient.GetAsync(url);
-            if (response.StatusCode == HttpStatusCode.OK)
+            var content = await response.Content.ReadAsStreamAsync();
+
+            var parser = new TextFieldParser(content);
+            parser.TextFieldType = FieldType.Delimited;
+            parser.SetDelimiters(",");
+            // Skip header line
+            parser.ReadLine();
+
+            var stations = new List<Station>();
+            while (!parser.EndOfData)
             {
-                var content = await response.Content.ReadAsStreamAsync();
+                //Processing row
+                var fields = parser.ReadFields();
 
-                var parser = new TextFieldParser(content);
-                parser.TextFieldType = FieldType.Delimited;
-                parser.SetDelimiters(",");
-                // Skip header line
-                parser.ReadLine();
+                // Filter out non-MetroLink stations
+                if (fields[9] != "M") continue;
 
-                var stations = new List<Station>();
-                while (!parser.EndOfData)
-                {
-                    //Processing row
-                    var fields = parser.ReadFields();
+                var coordinate = new Coordinate(double.Parse(fields[2]), double.Parse(fields[3]));
+                var station = new Station(fields[0], fields[6], coordinate);
 
-                    // Filter out non-MetroLink stations
-                    if (fields[9] != "M") continue;
-
-                    var coordinate = new Coordinate(double.Parse(fields[2]), double.Parse(fields[3]));
-                    var station = new Station(fields[0], fields[6], coordinate);
-
-                    stations.Add(station);
-                }
-
-                return stations;
+                stations.Add(station);
             }
 
-            Console.Out.WriteLine(response.StatusCode);
-            throw new Exception();
+            return stations;
         }
+
+        Console.Out.WriteLine(response.StatusCode);
+        throw new Exception();
     }
 }

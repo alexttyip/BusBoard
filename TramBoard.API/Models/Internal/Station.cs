@@ -1,16 +1,15 @@
-namespace TramBoard.API.Models.Internal
-{
-    public class Station
-    {
-        public string AtcoCode;
-        public Coordinate Coordinate;
-        public string Name;
+namespace TramBoard.API.Models.Internal;
 
-        public Station(string atcoCode, string name, Coordinate coordinate)
-        {
-            AtcoCode = atcoCode;
-            Name = name;
-            Coordinate = coordinate;
-        }
+public class Station
+{
+    public string AtcoCode;
+    public Coordinate Coordinate;
+    public string Name;
+
+    public Station(string atcoCode, string name, Coordinate coordinate)
+    {
+        AtcoCode = atcoCode;
+        Name = name;
+        Coordinate = coordinate;
     }
 }
