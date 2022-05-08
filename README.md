@@ -1,5 +1,5 @@
 # Tram Board
 
-Available at [tram-board.azurewebsites.net](https://tram-board.azurewebsites.net).
+Available at [https://tram-board.herokuapp.com/](https://tram-board.herokuapp.com/).
 
-Created by [Adam Whiteny](https://github.com/adamwhitneysoftwire) and [Alex Yip](https://github.com/alexttyip).
+Created by [Adam Whitney](https://github.com/adamwhitneysoftwire) and [Alex Yip](https://github.com/alexttyip).
