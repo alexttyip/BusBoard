@@ -1,5 +1,10 @@
 var builder = WebApplication.CreateBuilder(args);
 
+var port = Environment.GetEnvironmentVariable("PORT");
+
+if (port != null)
+    builder.WebHost.UseUrls("http://*:" + port);
+
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 

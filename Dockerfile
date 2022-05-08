@@ -25,6 +25,4 @@ WORKDIR /app
 COPY --from=build-env /app/out .
 
 # Run the app on container startup
-# Use your project name for the second parameter
-ENV ASPNETCORE_URLS=http://+:$PORT
 ENTRYPOINT ["dotnet", "TramBoard.WEB.dll"]
